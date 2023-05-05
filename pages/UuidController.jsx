@@ -81,7 +81,7 @@ const PDFView = ({ uuid }) => {
                 <Document>
                     <Page size='A4' style={styles.body} >
                         <View style={styles.container} >
-                            {uuid.map((i, index) =>
+                            {uuid && uuid.map((i, index) =>
                                 <View style={styles.box} key={index}>
                                     <Image src='/logo.png' style={styles.image}></Image>
                                     <Text style={styles.text}>Gracias por tu compra</Text>
