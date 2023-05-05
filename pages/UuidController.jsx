@@ -1,113 +1,111 @@
-import { Document, Page, View, Text, Image, PDFViewer, StyleSheet, Font } from "@react-pdf/renderer";
-import { useUser } from "../context/Context.js"
-import { useState, useRef, useEffect } from 'react'
-// import DocUUID from './docUUID'
+
+import { useState, useEffect } from 'react'
+import { generateUUID } from '../utils/UIDgenerator'
+import { writeUserData } from '../firebase/utils'
 import Button from '../components/Button'
-import { PDFDownloadLink } from "@react-pdf/renderer";
+import styles from '../styles/Uuid.module.css'
+import Image from 'next/image'
+import Layout from '../layout/Layout'
+import { useUser } from '../context/Context.js'
+import { WithAuth } from '../HOCs/WithAuth'
+
+import { useRouter } from 'next/router'
+
+import dynamic from "next/dynamic";
+
+const InvoicePDF = dynamic(() => import("../components/pdfDoc"), {
+  ssr: false,
+});
 
 
-Font.register({ family: "Inter", src: "/assets/font.otf" })
 
-const styles = StyleSheet.create({
-    body: {
-        position: 'relative',
-        boxSizing: 'border-box',
-        padding: ' 0.3cm 1cm',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'space-between',
-        backgroundColor: 'white',
-        boxShadow: '0 0 5px 1px rgb(175, 175, 175)',
-    },
-
-    container: {
-        position: 'relative',
-        boxSizing: 'border-box',
-        padding: '0px',
-        display: 'flex',
-        flexDirection: 'row',
-        flexWrap: 'wrap',
-        alignItems: 'center',
-        justifyContent: 'flex-start',
-        backgroundColor: 'rgb(255, 255, 255)',
-        height: '100%',
-        width: '100%',
-        zIndex: '100',
-    },
-    box: {
-        width: '50%',
-        fontSize: '12px',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        margin: '5mm 0'
-
-    },
-    text: {
-        width: '100%',
-        fontSize: '10px',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        margin: '2px 0'
+function UuidController() {
+  const { user, userDB, setUserSuccess, success, uuid, setUuid } = useUser()
+  const router = useRouter()
 
 
-    },
-    image: {
-        height: '1cm',
-        width: '1cm',
+  function generate() {
+    let uuidGenerates = []
+    for (let i = 0; i < 16; i++) {
+      const newUuid = generateUUID()
+      uuidGenerates.push(newUuid)
     }
-})
+    setUuid([...uuidGenerates])
+  }
 
-const PDFView = ({ uuid }) => {
-    // const { image, setAlbunImage, templates, numeration, qr, dataUrl, uuid } = useUser()
-
-    const [isCliente, setisCliente] = useState(false);
-
-
-    function download(url) {
-        window.open(url, '_system')
-    }
-
-    useEffect(() => {
-        setisCliente(true)
-    }, []);
+  function añadir() {
+    console.log('anadiendo codes')
+    const obj = uuid.reduce(function (target, key, index) {
+      target[key] = false
+      return target;
+    }, {})
+    return writeUserData('/activadores', obj, setUserSuccess)
+  }
 
 
-    return (
-        <div>
-            {isCliente && <PDFDownloadLink document={
-                <Document>
-                    <Page size='A4' style={styles.body} >
-                        <View style={styles.container} >
-                            {uuid && uuid.map((i, index) =>
-                                <View style={styles.box} key={index}>
-                                    <Image src='/logo.png' style={styles.image}></Image>
-                                    <Text style={styles.text}>Gracias por tu compra</Text>
-                                    <Text style={styles.text}>Tu codigo de activación es el:</Text>
-                                    <Text style={styles.text}>{i}  </Text>
-                                </View>
-                            )}
-                        </View>
-                    </Page>
-                </Document>
-            }
-                fileName='Activadores'>
+  function redirect() {
+    const obj = uuid.reduce(function (target, key, index) {
+      target[key] = false
+      return target;
+    }, {})
+    router.push('/PDFdoc')
+    return writeUserData('/activadores', obj, setUserSuccess)
+  }
+  useEffect(() => {
 
-                {({ blob, url, loading, error }) =>
-                    <Button style={'buttonPrimary'} click={(e)=>download(url)}>añadireeee</Button>
-                }
-            </PDFDownloadLink>}
+  }, []);
+
+
+
+
+
+
+
+  return (
+    <Layout>
+
+      <div className={styles.container}>
+
+        {/* <img src="/logoCircle.png" className={styles.logo} alt="User" /> */}
+        <div className={styles.container}>
+          <div className={styles.buttons}>
+            <Button click={generate} style={'buttonPrimary'}>generate</Button>
+            <br /> <br />
+            <div className={styles.box}>
+              {uuid.map((i, index) => <div key={index}>
+
+                <img src='/logo.png' className={styles.image}></img>
+                <p className={styles.text}>Gracias por tu compra</p>
+                <p className={styles.text}>Tu codigo de activación es el:</p>
+                <p className={styles.text}>{i}</p>
+
+              </div>)}
+            </div>
+            <br />
+            {/* <Button click={añadir} style={'buttonPrimary'}>añadir</Button> <br />
+              <br /> */}
+            
+
+            <InvoicePDF uuid={uuid}  />
+              <br />
+              <br />
+
+          </div>
+
         </div>
-    )
+
+
+      </div>
+    </Layout>
+
+  )
 }
 
-export default PDFView
 
 
 
 
+export default WithAuth(UuidController) 
 
 
 
