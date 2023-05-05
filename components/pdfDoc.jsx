@@ -60,15 +60,20 @@ const styles = StyleSheet.create({
     }
 })
 
-const PDFView = ({click}) => {
-    const { image, setAlbunImage, templates, numeration, qr, dataUrl, uuid } = useUser()
-    console.log(dataUrl)
+const PDFView = ({ uuid }) => {
+    // const { image, setAlbunImage, templates, numeration, qr, dataUrl, uuid } = useUser()
+
     const [isCliente, setisCliente] = useState(false);
 
+
+    function download(url) {
+        window.open(url, '_black')
+    }
 
     useEffect(() => {
         setisCliente(true)
     }, []);
+
 
     return (
         <div>
@@ -88,19 +93,17 @@ const PDFView = ({click}) => {
                     </Page>
                 </Document>
             }
-            fileName='Activadores'>
-                <Button click={click} style={'buttonPrimary'}>añadir</Button>
+                fileName='Activadores'>
+
+                {({ blob, url, loading, error }) =>
+                    <Button style={'buttonPrimary'} click={(e)=>download(url)}>añadir</Button>
+                }
             </PDFDownloadLink>}
         </div>
     )
 }
 
 export default PDFView
-
-
-
-
-
 
 
 
