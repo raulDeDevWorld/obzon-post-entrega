@@ -4,6 +4,7 @@ import { useState, useRef, useEffect } from 'react'
 // import DocUUID from './docUUID'
 import Button from '../components/Button'
 import { PDFDownloadLink } from "@react-pdf/renderer";
+import { useRouter } from 'next/router'
 
 
 Font.register({ family: "Inter", src: "/assets/font.otf" })
@@ -64,11 +65,18 @@ const PDFView = ({ uuid }) => {
     // const { image, setAlbunImage, templates, numeration, qr, dataUrl, uuid } = useUser()
 
     const [isCliente, setisCliente] = useState(false);
+    const router = useRouter()
 
 
     function download(url) {
-        console.log(url)
-        window.open(url, '_system')
+
+        // router.push({
+        //     pathname: 'http://localhost:3000/UuidController',
+        //     query: { uuid},
+        //   })
+
+
+        window.open(`http://localhost:3000/UuidController?uuid=${uuid}`, '_system')
     }
 
     useEffect(() => {
@@ -105,6 +113,9 @@ const PDFView = ({ uuid }) => {
 }
 
 export default PDFView
+
+
+
 
 
 
