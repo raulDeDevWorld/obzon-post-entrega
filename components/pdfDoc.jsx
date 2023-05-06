@@ -67,7 +67,7 @@ const PDFView = ({ uuid }) => {
 
 
     function download(url) {
-        window.open(url, '_black')
+        window.open('https://www.google.com/?hl=es', '_system')
     }
 
     useEffect(() => {
@@ -81,7 +81,7 @@ const PDFView = ({ uuid }) => {
                 <Document>
                     <Page size='A4' style={styles.body} >
                         <View style={styles.container} >
-                            {uuid.map((i, index) =>
+                            {uuid && uuid.map((i, index) =>
                                 <View style={styles.box} key={index}>
                                     <Image src='/logo.png' style={styles.image}></Image>
                                     <Text style={styles.text}>Gracias por tu compra</Text>
@@ -104,12 +104,6 @@ const PDFView = ({ uuid }) => {
 }
 
 export default PDFView
-
-
-
-
-
-
 
 
 
