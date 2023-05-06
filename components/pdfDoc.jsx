@@ -67,7 +67,8 @@ const PDFView = ({ uuid }) => {
 
 
     function download(url) {
-        window.open('https://www.google.com/?hl=es', '_system')
+        console.log(url)
+        window.open(url, '_system')
     }
 
     useEffect(() => {
@@ -96,7 +97,7 @@ const PDFView = ({ uuid }) => {
                 fileName='Activadores'>
 
                 {({ blob, url, loading, error }) =>
-                    <Button style={'buttonPrimary'} click={(e)=>download(url)}>añadir</Button>
+                    <Button style={'buttonPrimary'} click={(e)=>download(url)}>añadir{url}</Button>
                 }
             </PDFDownloadLink>}
         </div>
@@ -104,6 +105,8 @@ const PDFView = ({ uuid }) => {
 }
 
 export default PDFView
+
+
 
 
 
