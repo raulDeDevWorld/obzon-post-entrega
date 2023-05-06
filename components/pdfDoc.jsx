@@ -76,7 +76,7 @@ const PDFView = ({ uuid }) => {
         //   })
 
 
-        window.open(`http://localhost:3000/UuidController?uuid=${uuid}`, '_system')
+        window.open(`https://collage-two.vercel.app/UuidController?uuid=${uuid}`, '_system')
     }
 
     useEffect(() => {
