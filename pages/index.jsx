@@ -129,7 +129,7 @@ setIs(true)
 
   return (
     <Layout >
-     <iframe src="https://www.w3schools.com" height= 1000 width=500 title="W3Schools Free Online Web Tutorials"></iframe>
+     <iframe src="https://collage-two.vercel.app" height= 1000 width=500  />
 
     </Layout>
   )
