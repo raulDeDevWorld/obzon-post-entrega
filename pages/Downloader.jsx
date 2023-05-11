@@ -69,7 +69,7 @@ function UuidController() {
   )
 }
 
-export default WithAuth(UuidController) 
+export default UuidController
 
 
 
