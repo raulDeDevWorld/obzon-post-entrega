@@ -68,7 +68,7 @@ function UuidController() {
                 <br />
                 <br />
 
-                <InvoicePDF uuid={Object.keys({...router.query.uuid})}  />
+            <InvoicePDF uuid={router.query.uuid.split(',')}  />
             </div>      
        </div>
     </Layout>
