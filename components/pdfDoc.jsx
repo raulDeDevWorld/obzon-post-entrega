@@ -75,8 +75,9 @@ const PDFView = ({ uuid }) => {
         //     query: { uuid},
         //   })
 
+        console.log(uuid)
 
-        window.open(`https://collage-two.vercel.app/UuidController?uuid=${uuid}`, '_system')
+        router.pathname !== '/Downloader' && window.open(`http://localhost:3000/Downloader?uuid=${uuid}`, '_system')
     }
 
     useEffect(() => {
@@ -105,7 +106,7 @@ const PDFView = ({ uuid }) => {
                 fileName='Activadores'>
 
                 {({ blob, url, loading, error }) =>
-                    <Button style={'buttonPrimary'} click={(e)=>download(url)}>añadir{url}</Button>
+                    <Button style={'buttonPrimary'} click={(e)=>download(url)}> {router.pathname == '/Downloader' ? 'Descargar PDF' : 'Añadir'}</Button>
                 }
             </PDFDownloadLink>}
         </div>
@@ -113,6 +114,7 @@ const PDFView = ({ uuid }) => {
 }
 
 export default PDFView
+
 
 
 
