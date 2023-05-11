@@ -62,8 +62,15 @@ function UuidController() {
     <Layout>
 
       <div className={styles.container}>
-            <InvoicePDF uuid={Object.values({...router.query.uuid})}  />
-      </div>
+            <div style={{color: 'white'}}>
+            
+                Completa tu Descarga
+                <br />
+                <br />
+
+                <InvoicePDF uuid={Object.keys({...router.query.uuid})}  />
+            </div>      
+       </div>
     </Layout>
 
   )
