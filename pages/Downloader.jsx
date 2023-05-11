@@ -17,8 +17,6 @@ const InvoicePDF = dynamic(() => import("../components/pdfDoc"), {
   ssr: false,
 });
 
-
-
 function UuidController() {
   const { user, userDB, setUserSuccess, success, uuid, setUuid } = useUser()
   const router = useRouter()
@@ -55,57 +53,28 @@ function UuidController() {
 
   }, []);
 
-
-
-
-
+  const obj = new URLSearchParams(router.query)
+  console.log({...router.query.uuid})
+//   console.log(Object.fromEntries(obj.get('uuid')))
 
 
   return (
     <Layout>
 
       <div className={styles.container}>
-
-        {/* <img src="/logoCircle.png" className={styles.logo} alt="User" /> */}
-        <div className={styles.container}>
-          <div className={styles.buttons}>
-            <Button click={generate} style={'buttonPrimary'}>generate</Button>
-            <br /> <br />
-            <div className={styles.box}>
-              {uuid.map((i, index) => <div key={index}>
-
-                <img src='/logo.png' className={styles.image}></img>
-                <p className={styles.text}>Gracias por tu compra</p>
-                <p className={styles.text}>Tu codigo de activación es el:</p>
-                <p className={styles.text}>{i}</p>
-
-              </div>)}
-            </div>
-            <br />
-            {/* <Button click={añadir} style={'buttonPrimary'}>añadir</Button> <br />
-              <br /> */}
-            
-
-            <InvoicePDF uuid={uuid}  />
-              <br />
-              <br />
-
-          </div>
-
-        </div>
-
-
+            <InvoicePDF uuid={Object.values({...router.query.uuid})}  />
       </div>
     </Layout>
 
   )
 }
 
+export default WithAuth(UuidController) 
 
 
 
 
-export default UuidController
+
 
 
 
