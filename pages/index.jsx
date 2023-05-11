@@ -128,10 +128,18 @@ setIs(true)
   }, [qr]);
 
   return (
-    <>
+    <Layout>
+    <br/>
+    <br/>
+     <br/>
+    <br/>
+     <br/>
+    <br/>
+     <br/>
+    <br/>
      <iframe height={1000} width={500} src="https://collage-two.vercel.app" />
 
-    </>
+    </Layout>
   )
 }
 
