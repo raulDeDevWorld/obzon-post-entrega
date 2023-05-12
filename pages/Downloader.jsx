@@ -53,9 +53,9 @@ function UuidController() {
 
   }, []);
 
-  const obj = new URLSearchParams(router.query)
-  console.log({...router.query.uuid})
-//   console.log(Object.fromEntries(obj.get('uuid')))
+
+
+
 
 
   return (
