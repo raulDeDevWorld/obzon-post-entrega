@@ -74,11 +74,13 @@ const PDFView = ({ uuid }) => {
         //     pathname: 'http://localhost:3000/UuidController',
         //     query: { uuid},
         //   })
-        
-        
-        
-        
-            const isWebview = () => {
+
+        // console.log(uuid)
+
+
+
+
+        const isWebview = () => {
             if (typeof window === undefined) { return false };
 
             let navigator = window.navigator;
@@ -99,6 +101,8 @@ const PDFView = ({ uuid }) => {
 
 
     }
+
+
 
     useEffect(() => {
         setisCliente(true)
@@ -126,7 +130,7 @@ const PDFView = ({ uuid }) => {
                 fileName='Activadores'>
 
                 {({ blob, url, loading, error }) =>
-                    <Button style={'buttonPrimary'} click={(e)=>download(url)}> {router.pathname == '/Downloader' ? 'Descargar PDF' : 'Añadir'}</Button>
+                    <Button style={'buttonPrimary'} click={(e) => download(url)}> {router.pathname == '/Downloader' ? 'Descargar PDF' : 'Añadir'}</Button>
                 }
             </PDFDownloadLink>}
         </div>
@@ -134,8 +138,6 @@ const PDFView = ({ uuid }) => {
 }
 
 export default PDFView
-
-
 
 
 
