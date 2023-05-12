@@ -1,4 +1,5 @@
-import { Document, Page, View, Text, Image, PDFViewer, StyleSheet, Font } from "@react-pdf/renderer";
+
+        import { Document, Page, View, Text, Image, PDFViewer, StyleSheet, Font } from "@react-pdf/renderer";
 import { useUser } from "../context/Context.js"
 import { useState, useRef, useEffect } from 'react'
 // import DocUUID from './docUUID'
@@ -75,34 +76,10 @@ const PDFView = ({ uuid }) => {
         //     query: { uuid},
         //   })
 
-        // console.log(uuid)
+        console.log(uuid)
 
-
-
-
-        const isWebview = () => {
-            if (typeof window === undefined) { return false };
-
-            let navigator = window.navigator;
-
-            const standalone = navigator.standalone;
-            const userAgent = navigator.userAgent.toLowerCase();
-            const safari = /safari/.test(userAgent);
-            const ios = /iphone|ipod|ipad/.test(userAgent);
-
-            return ios ? !standalone && !safari : userAgent.includes('wv');
-        }
-
-        if (isWebview()) {
-            router.pathname !== '/Downloader' && window.open(`https://collage-two.vercel.app/Downloader?uuid=${uuid}`, '_system')
-        } else {
-            console.log('no es una webview')
-        }
-
-
+        router.pathname !== '/Downloader' && window.open(`https://collage-two.vercel.app/Downloader?uuid=${uuid}`, '_system')
     }
-
-
 
     useEffect(() => {
         setisCliente(true)
@@ -130,7 +107,7 @@ const PDFView = ({ uuid }) => {
                 fileName='Activadores'>
 
                 {({ blob, url, loading, error }) =>
-                    <Button style={'buttonPrimary'} click={(e) => download(url)}> {router.pathname == '/Downloader' ? 'Descargar PDF' : 'Añadir'}</Button>
+                    <Button style={'buttonPrimary'} click={(e)=>download(url)}> {router.pathname == '/Downloader' ? 'Descargar PDF' : 'Añadir'}</Button>
                 }
             </PDFDownloadLink>}
         </div>
@@ -138,6 +115,8 @@ const PDFView = ({ uuid }) => {
 }
 
 export default PDFView
+
+
 
 
 
